@@ -18,6 +18,8 @@ transfusion_model<-readRDS("transfusion_model.rds")
 transfusion_explainer<-readRDS("transfusion_explainer.rds")
 visc_inj_model<-readRDS("visc_inj_model.rds")
 visc_inj_explainer<-readRDS("visc_inj_explainer.rds")
+adj_rx_model<-readRDS("adj_rx_model.rds")
+adj_rx_explainer<-readRDS("adj_rx_explainer.rds")
 
 source("overall_percentages.R", local = TRUE)
 source("charlson_table.R", local = TRUE)
@@ -169,7 +171,7 @@ tabPanel(title = "ML Predictions",
                  inputId = "calyceal_diverticular",
                  label = "Location: Calyceal Diverticulum",
                  choices = c("Yes","No"),
-                 selected = "No"
+                 selected = "Yes"
                ),                
                selectInput(
                  inputId = "calyceal_l",
@@ -296,6 +298,9 @@ tabPanel(title = "Visceral Injury",
          h4("pred = predicted likelihood of outcome according to model")),
 tabPanel(title = "Post-Operative Complications",
          plotOutput(outputId = "post_op_comp_shapley"),
+         h4("pred = predicted likelihood of outcome according to model")),
+tabPanel(title = "Need for Adjuvant Treatment",
+         plotOutput(outputId = "adj_rx_shapley"),
          h4("pred = predicted likelihood of outcome according to model"))
 )
 )
@@ -684,6 +689,10 @@ server <- function(input, output) {
                                    approach = "gaussian",
                                    explainer = sf_at_fu_explainer,
                                    prediction_zero = 0)
+    adj_rx_explanation<- explain(getData1(),
+                                 approach = "gaussian",
+                                 explainer = adj_rx_explainer,
+                                 prediction_zero = 0)
     
     
     
@@ -694,7 +703,18 @@ server <- function(input, output) {
         "Transfusion",
         "ITU/HDU Admission",
         "Visceral Injury",
-        "Post-operative Complication"
+        "Post-operative Complication",
+        "Need for Adjuvant Treatment"
+      ),
+      "Prediction" = (c(
+        (sf_at_fu_explanation$p %>% round()),
+        (infection_explanation$p %>% round()),
+        (transfusion_explanation$p %>% round()),
+        (itu_hdu_explanation$p %>% round()),
+        (visc_inj_explanation$p %>% round()),
+        (post_op_comp_explanation$p %>% round()),
+        (adj_rx_explanation$p %>% round()) 
+      ) %>% ifelse("Likely", "Unlikely")
       ),
       "Predicted likelihood (%)" = c(
         sf_at_fu_explanation$p,
@@ -702,7 +722,8 @@ server <- function(input, output) {
         transfusion_explanation$p,
         itu_hdu_explanation$p,
         visc_inj_explanation$p,
-        post_op_comp_explanation$p
+        post_op_comp_explanation$p,
+        adj_rx_explanation$p 
       )
     ) %>% as_tibble()
     explanation_table$`Predicted likelihood (%)` <-
@@ -768,6 +789,16 @@ server <- function(input, output) {
       prediction_zero = 0
     ) %>% plot()
   })
+  
+  output$adj_rx_shapley <- renderPlot({
+    explain(
+      getData1(),
+      approach = "gaussian",
+      explainer = adj_rx_explainer,
+      prediction_zero = 0
+    ) %>% plot()
+  })
+  
 }
 
 # Run the application 
