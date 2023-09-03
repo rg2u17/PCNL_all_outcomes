@@ -339,6 +339,8 @@ PCNL_original1$post_operative_stay<-as.numeric(PCNL_original1$post_operative_sta
 PCNL_original1$stone_free_at_follow_up<-as.factor(PCNL_original1$stone_free_at_follow_up)
 PCNL_original1$adjuvant_treatment<-as.factor(PCNL_original1$adjuvant_treatment)
 PCNL_original1$intraop_complications<-as.factor(PCNL_original1$intraop_complications)
+PCNL_original1$complete_clearance_on_fluoroscopy <-
+  as.factor(PCNL_original1$complete_clearance_on_fluoroscopy)
 
 ## Transfusion
 PCNL_original_transfusion <- subset(
