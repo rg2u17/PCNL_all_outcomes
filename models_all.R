@@ -1,8 +1,11 @@
 PCNL_ctrl <-
   trainControl(method = "repeatedcv",
+               number = 10,
+               repeats = 5,
                classProbs = TRUE,
                savePredictions = TRUE,
-               p = 1)
+               p = 1,
+              summaryFunction = twoClassSummary)
 
 
 #single_infection_outcome 
@@ -13,7 +16,8 @@ PCNL_Post_Infection_xgboost <-
     single_infection_outcome ~ .,
     data = PCNL_single_infection_omit_na_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Oversampled
@@ -22,7 +26,8 @@ PCNL_Post_Infection_oversample_xgboost <-
     single_infection_outcome ~ .,
     data = PCNL_single_infection_omit_na_train_oversample,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Imputed
@@ -31,7 +36,8 @@ PCNL_Post_Infection_imp_xgboost <-
     single_infection_outcome ~ .,
     data = PCNL_single_infection_imp_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Imputed and Oversampled
@@ -40,7 +46,8 @@ PCNL_Post_Infection_imp_oversample_xgboost <-
     single_infection_outcome ~ .,
     data = PCNL_single_infection_imp_oversample_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 #blood_transfusion
@@ -51,7 +58,8 @@ PCNL_transfusion_xgboost <-
     blood_transfusion ~ .,
     data = PCNL_transfusion_omit_na_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Oversampled
@@ -60,7 +68,8 @@ PCNL_transfusion_oversample_xgboost <-
     blood_transfusion ~ .,
     data = PCNL_transfusion_omit_na_train_oversample,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Imputed
@@ -69,7 +78,8 @@ PCNL_transfusion_imp_xgboost <-
     blood_transfusion ~ .,
     data = PCNL_transfusion_imp_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Imputed and Oversampled
@@ -78,7 +88,8 @@ PCNL_transfusion_imp_oversample_xgboost <-
     blood_transfusion ~ .,
     data = PCNL_transfusion_imp_oversample_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 #itu_hdu_admission
@@ -88,7 +99,8 @@ PCNL_itu_hdu_xgboost <-
     itu_hdu_admission ~ .,
     data = PCNL_itu_hdu_omit_na_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Oversampled
@@ -97,7 +109,8 @@ PCNL_itu_hdu_oversample_xgboost <-
     itu_hdu_admission ~ .,
     data = PCNL_itu_hdu_omit_na_train_oversample,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Imputed
@@ -106,7 +119,8 @@ PCNL_itu_hdu_imp_xgboost <-
     itu_hdu_admission ~ .,
     data = PCNL_itu_hdu_imp_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Imputed and Oversampled
@@ -115,7 +129,8 @@ PCNL_itu_hdu_imp_oversample_xgboost <-
     itu_hdu_admission ~ .,
     data = PCNL_itu_hdu_imp_train_oversample,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 
@@ -126,7 +141,8 @@ PCNL_clearance_on_fluoro_xgboost <-
     complete_clearance_on_fluoroscopy ~ .,
     data = PCNL_clearance_on_fluoro_omit_na_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Oversampled
@@ -135,7 +151,8 @@ PCNL_clearance_on_fluoro_oversample_xgboost <-
     complete_clearance_on_fluoroscopy ~ .,
     data = PCNL_clearance_on_fluoro_omit_na_train_oversample,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Imputed
@@ -144,7 +161,8 @@ PCNL_clearance_on_fluoro_imp_xgboost <-
     complete_clearance_on_fluoroscopy ~ .,
     data = PCNL_clearance_on_fluoro_imp_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Imputed and Oversampled
@@ -153,7 +171,8 @@ PCNL_clearance_on_fluoro_imp_oversample_xgboost <-
     complete_clearance_on_fluoroscopy ~ .,
     data = PCNL_clearance_on_fluoro_imp_train_oversample,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 #visceral_injury
@@ -163,7 +182,8 @@ PCNL_visc_inj_xgboost <-
     visceral_injury ~ .,
     data = PCNL_visc_inj_omit_na_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Oversampled
@@ -172,7 +192,8 @@ PCNL_visc_inj_oversample_xgboost <-
     visceral_injury ~ .,
     data = PCNL_visc_inj_omit_na_train_oversample,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Imputed
@@ -181,7 +202,8 @@ PCNL_visc_inj_imp_xgboost <-
     visceral_injury ~ .,
     data = PCNL_visc_inj_imp_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Imputed and Oversampled
@@ -190,7 +212,8 @@ PCNL_visc_inj_imp_oversample_xgboost <-
     visceral_injury ~ .,
     data = PCNL_visc_inj_imp_train_oversample,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 #clearance_on_post_operative_radiological_imaging_during_a
@@ -200,7 +223,8 @@ PCNL_clearance_during_admission_xgboost <-
     clearance_on_post_operative_radiological_imaging_during_a ~ .,
     data = PCNL_clearance_during_admission_omit_na_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Oversampled
@@ -209,7 +233,8 @@ PCNL_clearance_during_admission_oversample_xgboost <-
     clearance_on_post_operative_radiological_imaging_during_a ~ .,
     data = PCNL_clearance_during_admission_omit_na_train_oversample,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Imputed
@@ -218,7 +243,8 @@ PCNL_clearance_during_admission_imp_xgboost <-
     clearance_on_post_operative_radiological_imaging_during_a ~ .,
     data = PCNL_clearance_during_admission_imp_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Imputed and Oversampled
@@ -227,7 +253,8 @@ PCNL_clearance_during_admission_imp_oversample_xgboost <-
     clearance_on_post_operative_radiological_imaging_during_a ~ .,
     data = PCNL_clearance_during_admission_imp_train_oversample,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 #postop_complications
@@ -237,7 +264,8 @@ PCNL_post_op_comp_xgboost <-
     postop_complications ~ .,
     data = PCNL_post_op_comp_omit_na_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Oversampled
@@ -246,7 +274,8 @@ PCNL_post_op_comp_oversample_xgboost <-
     postop_complications ~ .,
     data = PCNL_post_op_comp_omit_na_train_oversample,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Imputed
@@ -255,7 +284,8 @@ PCNL_post_op_comp_imp_xgboost <-
     postop_complications ~ .,
     data = PCNL_post_op_comp_imp_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Imputed and Oversampled
@@ -264,7 +294,8 @@ PCNL_post_op_comp_imp_oversample_xgboost <-
     postop_complications ~ .,
     data = PCNL_post_op_comp_imp_train_oversample,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 #stone_free_at_follow_up
@@ -274,7 +305,8 @@ PCNL_sf_at_fu_xgboost <-
     stone_free_at_follow_up ~ .,
     data = PCNL_sf_at_fu_omit_na_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Oversampled
@@ -283,7 +315,8 @@ PCNL_sf_at_fu_oversample_xgboost <-
     stone_free_at_follow_up ~ .,
     data = PCNL_sf_at_fu_omit_na_train_oversample,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Imputed
@@ -292,7 +325,8 @@ PCNL_sf_at_fu_imp_xgboost <-
     stone_free_at_follow_up ~ .,
     data = PCNL_sf_at_fu_imp_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Imputed and Oversampled
@@ -301,7 +335,8 @@ PCNL_sf_at_fu_imp_oversample_xgboost <-
     stone_free_at_follow_up ~ .,
     data = PCNL_sf_at_fu_imp_train_oversample,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 #adjuvant_treatment
@@ -311,7 +346,8 @@ PCNL_adj_rx_xgboost <-
     adjuvant_treatment ~ .,
     data = PCNL_adj_rx_omit_na_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Oversampled
@@ -320,7 +356,8 @@ PCNL_adj_rx_oversample_xgboost <-
     adjuvant_treatment ~ .,
     data = PCNL_adj_rx_omit_na_train_oversample,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Imputed
@@ -329,7 +366,8 @@ PCNL_adj_rx_imp_xgboost <-
     adjuvant_treatment ~ .,
     data = PCNL_adj_rx_imp_train,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
 
 ### Imputed and Oversampled
@@ -338,5 +376,6 @@ PCNL_adj_rx_imp_oversample_xgboost <-
     adjuvant_treatment ~ .,
     data = PCNL_adj_rx_imp_train_oversample,
     method = "xgbTree",
-    trControl = PCNL_ctrl
+    trControl = PCNL_ctrl,
+    metric="ROC"
   )
