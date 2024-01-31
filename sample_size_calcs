@@ -1,0 +1,20 @@
+library(pmsampsize)
+
+# Binary Outcome model Sample size calculation
+pmsampsize(
+  type = "b",
+  nagrsquared = NA,
+  csrsquared = NA,
+  rsquared = NA,
+  parameters = 30,
+  shrinkage = 0.5,
+  prevalence = 0.01,
+  cstatistic = 0.8,
+  seed = 1234,
+  rate = NA,
+  timepoint = NA,
+  meanfup = NA,
+  intercept = NA,
+  sd = NA,
+  mmoe = 1.1
+)
